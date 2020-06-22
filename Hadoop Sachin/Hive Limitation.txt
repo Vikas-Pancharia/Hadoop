@@ -1,0 +1,64 @@
+Limitation of Hive:-
+------------------
+There is no key (Primary Forign key) system in Hive.
+THere is no sub queries process  in  hive 
+there is no insert no update no delete min hive (note this if we are doing from table to table then it is possible)
+there is no data size declaration in hive (means varchar(90) or something like this )
+it is mainly for Structure  data processing  only.
+
+Data Types in hadoop (hive, pig , java , Mapreduce):- 
+--------------------------------------------------
+
+Java		Mapreduce			Pig				Hive 
+byte		byteWritable		byte			byte
+int			intWritable			int				int 
+long		longWritable		long			long
+double		doubleWritable		double			double 
+float		floatWritable		float			float
+boolean	    booleanWritable 	booleanArray	boolean
+char		text			    charArray	    String
+String      text				charArray		String			
+
+	
+purpus of hive :-
+--------------------------------------------------
+To provide simple interface to developers and to avoid java coding 
+
+it provids the sql like queary facility to process or anylyse the data, called as Hive query language.
+(HQL)
+Internaly hive engine convrts the each query in to map reduce programe .
+this is Db migration into hadoop
+
+Hive Flow :-
+---------
+(hive Queary)--->(hiveMetaStore)---->MRProgram---->run against multiple datanodes.
+
+Diffrence between Hive and Pig:-
+------------------------------
+Pig is Yahoo product, where as hive is apache product 
+Both have license and integration free.
+Pig data storage as object format, whereas hive store as file formate.
+Pig use latin language to execute data processing, whereas hive use HQL.
+Pig can store Structure and unstructure data, whereas hive mainly store Structure data only.
+Implementation of pig is for web log processing, where as hive uses to perform defferent-1 type of analysis on data.
+Pig storage is only temp storage, but Hive storage is permanent/temporary storage.
+
+Running/execution mode for pig and Hive:-
+---------------------------------------
+
+Hive:-
+----
+There is 2 mode.
+1. Local Mode(query by query execution)
+2. Batch Mode(Keeping all related query in one file as .hql file and execute)
+
+To execute batch mode command:-
+----------------------------- 
+(Hive):- source file_name.hql
+
+Pig:-
+---
+In pig batch mode(keeping all the related script in one file as .pig)
+
+To Execute batch mode in pig command:-
+(pig) :- exe filename.pig

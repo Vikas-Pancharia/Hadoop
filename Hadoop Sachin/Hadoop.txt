@@ -1,0 +1,11 @@
+hadoop notes:
+
+Instalation steps :
+	Step:1 Vmware player instalation on window.
+	Step:2 Open vmware vertual machine and poin out/locate the red hat os image file (which is 3 kb) 
+	Step:3 for loging click on Other -->at starting pahse user name : root and password : sasi
+	Step:4 once it will show your destop page, Open the terminal type "cd" it wil take you root directory then copy java file from desktop to root directory.
+	Step:5 Set up the new user.
+	so as of now you login as root user, fine now open terminal and type commands like below 
+	"useradd Vikas"
+	#password jbrd"

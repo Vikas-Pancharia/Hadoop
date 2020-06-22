@@ -1,0 +1,235 @@
+HOW TO CREATE DATABASE
+-----------------------------
+CREATE DATABASE IF NOT EXISTS vikas;
+
+CREATE DATABASE IF NOT EXISTS vikas
+COMMENT 'My database name is vikas'
+LOCATION '/hive/vikas'
+WITH DBPROPERTIES ('key1' = 'value1', 'key2' = 'value2');
+
+
+CREATE DATABASE IF NOT EXISTS vikas
+COMMENT 'My database name is vikas'
+WITH DBPROPERTIES ('key1' = 'value1', 'key2' = 'value2');
+
+DESCRIBE DATABASE vikas;
+    
+DESCRIBE DATABASE EXTENDED vikas;
+
+
+HOW TO DROP DATABASE
+-----------------------------
+DROP DATABASE IF EXISTS vikas;
+
+DROP DATABASE IF EXISTS vikas RESTRICT;
+
+DROP DATABASE IF EXISTS vikas CASCADE;
+
+
+HOW TO USE DATABASE
+-----------------------------
+USE vikas;
+
+
+HOW TO ALTER DATABASE
+-----------------------------
+ALTER DATABASE vikas SET DBPROPERTIES ('key1' = 'value11', 'key3' = 'value3');
+
+ALTER DATABASE vikas SET OWNER USER hadoop; 
+
+ALTER DATABASE vikas SET OWNER ROLE hadoop; 
+
+
+HOW TO CREATE TABLE
+-----------------------------
+CREATE TABLE IF NOT EXISTS student1 ( name string, id int , course string, year int );
+
+
+CREATE TABLE IF NOT EXISTS student1 ( name string, id int , course string, year int )
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY '\001'
+LINES TERMINATED BY '\n'
+STORED AS TEXTFILE;
+
+
+CREATE TABLE IF NOT EXISTS student2 ( name string, id int , course string, year int )
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY '\t'
+LINES TERMINATED BY '\n'
+STORED AS TEXTFILE;
+
+
+CREATE EXTERNAL TABLE IF NOT EXISTS student3 ( name string, id int , course string, year int )
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY '\t'
+LINES TERMINATED BY '\n'
+STORED AS TEXTFILE;
+
+
+CREATE TEMPORARY TABLE IF NOT EXISTS student4 ( name string, id int , course string, year int )
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY '\t'
+LINES TERMINATED BY '\n'
+STORED AS TEXTFILE;
+
+
+
+LOAD DATA LOCAL INPATH '/home/orienit/work/hive_inputs/student.txt' OVERWRITE INTO TABLE student1;
+
+LOAD DATA LOCAL INPATH '/home/orienit/work/hive_inputs/student.txt' OVERWRITE INTO TABLE student2;
+
+
+
+HOW TO LOAD DATA INTO TABLE
+-----------------------------
+LOAD DATA LOCAL INPATH '/home/orienit/work/hive_inputs/student.txt' OVERWRITE INTO TABLE student2;
+
+LOAD DATA LOCAL INPATH '/home/orienit/work/hive_inputs/student.txt' INTO TABLE student2;
+
+hadoop fs -mkdir -p /home/orienit/work/hive_inputs
+
+hadoop fs -put /home/orienit/work/hive_inputs/student.txt /home/orienit/work/hive_inputs/student.txt
+
+LOAD DATA INPATH '/home/orienit/work/hive_inputs/student.txt' OVERWRITE INTO TABLE student2;
+
+hadoop fs -put /home/orienit/work/hive_inputs/student.txt /home/orienit/work/hive_inputs/student.txt
+
+LOAD DATA INPATH '/home/orienit/work/hive_inputs/student.txt' INTO TABLE student2;
+
+
+HOW TO KNOW INFORMATION ABOUT TABLE
+-----------------------------
+DESCRIBE tbl_name;
+
+DESCRIBE FORMATTED tbl_name;
+
+DESCRIBE EXTENDED tbl_name;
+
+
+HOW TO USE EXTERNAL TABLE
+-----------------------------
+hadoop fs -mkdir /hive/externaldata
+
+hadoop fs -put /home/orienit/work/hive_inputs/student.txt /hive/externaldata/student.txt
+
+CREATE EXTERNAL TABLE IF NOT EXISTS studentext1
+( name string, id int , course string, year int )
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY '\t'
+LINES TERMINATED BY '\n'
+STORED AS TEXTFILE;
+
+SELECT * FROM studentext1;
+
+DESCRIBE FORMATTED studentext1;
+
+
+CREATE EXTERNAL TABLE IF NOT EXISTS studentext2
+( name string, id int , course string, year int )
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY '\t'
+LINES TERMINATED BY '\n'
+STORED AS TEXTFILE
+LOCATION '/hive/externaldata';
+
+SELECT * FROM studentext2;
+
+DESCRIBE FORMATTED studentext2;
+
+
+CREATE TABLE IF NOT EXISTS student 
+( 
+name string comment 'student name', 
+id int comment 'student id', 
+course string comment 'student course', 
+year int comment 'student year'
+)
+COMMENT 'My table name is student'
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY '\t'
+LINES TERMINATED BY '\n'
+STORED AS TEXTFILE
+LOCATION '/hive/vikas/student'
+TBLPROPERTIES ('key1'='value1', 'key2'='value2')
+;
+
+
+LOAD DATA LOCAL INPATH '/home/orienit/work/hive_inputs/student.txt' OVERWRITE INTO TABLE student;
+
+LOAD DATA LOCAL INPATH '${env:HOME}/work/hive_inputs/student.txt' OVERWRITE INTO TABLE student;
+
+
+set ;
+
+set hive.cli.print.current.db=true;
+
+set hive.cli.print.header=true;
+
+
+INSERT INTO TABLE student VALUES ('arun', 1, 'mca', 1), ('anil', 2, 'mca', 1), ('sudheer', 3, 'mca', 2), ('santosh', 4, 'mca', 2);
+
+UPDATE student SET year = 3, name = 'san' WHERE id = 4 ;
+
+
+
+HOW TO CREATE PARTITION TABLE
+------------------------------------------
+CREATE TABLE IF NOT EXISTS student_partition ( name string , id int ) 
+PARTITIONED BY ( course string , year int)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY '\t'
+LINES TERMINATED BY '\n'
+STORED AS TEXTFILE
+;
+
+
+HOW TO WRITE HIVE STATIC PARTITION QUERIES
+--------------------------------------------------------------
+LOAD DATA LOCAL INPATH '${env:HOME}/work/hive_inputs/student_cse_1.txt' OVERWRITE INTO TABLE student_partition PARTITION(course = 'cse', year = 1);
+
+LOAD DATA LOCAL INPATH '${env:HOME}/work/hive_inputs/student_cse_2.txt' OVERWRITE INTO TABLE student_partition PARTITION(course = 'cse', year = 2);
+
+
+HOW TO WRITE PARTITION TABLE QUERIES
+--------------------------------------------------------------
+SHOW PARTITIONS student_partition;
+
+SELECT * FROM student_partition;
+
+SELECT * FROM student_partition WHERE year = 1;
+SELECT * FROM student_partition WHERE course = 'cse';
+
+SELECT * FROM student_partition WHERE course = 'mech' and year = 1;
+SELECT * FROM student_partition WHERE course = 'mech' or year = 1;
+
+
+
+HOW TO WRITE HIVE DYNAMIC PARTITION QUERIES
+--------------------------------------------------------------
+set hive.exec.dynamic.partition.mode=nonstrict;
+
+INSERT OVERWRITE TABLE student_partition PARTITION(course, year) select * from student;
+
+
+LOAD DATA LOCAL INPATH '${env:HOME}/work/hive_inputs/student1.txt' INTO TABLE student;
+
+INSERT INTO TABLE student_partition PARTITION(course = 'it', year) SELECT name, id, year FROM student WHERE course = 'it';
+
+INSERT INTO TABLE student_partition PARTITION(course = 'ece', year = 3) SELECT name, id FROM student WHERE course = 'it' AND year = 3;
+
+INSERT OVERWRITE TABLE student_partition PARTITION(course = 'ece', year = 3) SELECT name, id FROM student WHERE course = 'it' AND year = 3;
+
+
+INSERT INTO TABLE student_partition PARTITION(course = 'mca', year = 1) VALUES 
+('arun', 1), ('anil', 2), ('sudheer', 3), ('santosh', 4);
+
+
+
+CREATE TABLE IF NOT EXISTS users1 ( name string, id int) CLUSTERED BY (id) INTO 4 BUCKETS;
+
+CREATE TABLE IF NOT EXISTS users2 ( name string, id int) CLUSTERED BY (id) SORTED BY (id DESC) INTO 5 BUCKETS;
+
+set hive.enforce.bucketing=true;
+
+INSERT OVERWRITE TABLE users1 SELECT * FROM users;
+INSERT OVERWRITE TABLE users2 SELECT * FROM users;

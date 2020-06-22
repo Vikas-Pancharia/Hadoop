@@ -1,0 +1,27 @@
+Bucketing Features in Hive
+Hive partition divides table into number of partitions and these partitions can be further subdivided into more manageable parts known as Buckets or Clusters. The Bucketing concept is based on Hash function, which depends on the type of the bucketing column. Records which are bucketed by the same column will always be saved in the same bucket.
+
+Here, CLUSTERED BY clause is used to divide the table into buckets.
+
+In Hive Partition, each partition will be created as directory. But in Hive Buckets, each bucket will be created as file.
+
+Bucketing can also be done even without partitioning on Hive tables.
+
+Create a bucket Table:-
+---------------------
+hive (testdb)> create table Btable(id int, name String, lastname String) clustered by(id) into 5 buckets row format delimited fields terminated by ',' stored as textfile;
+
+Data:-
+----
+1,Vikas,Pancharia
+2,Sachin,Tiwari
+3,Saket,Bihari,
+4,Mohit,Srivastav
+5,Sumit,Jangid
+
+Formula to calculate:-
+---------------------
+f(x)%tmentioned numberofbuckets.
+
+1%5=1
+2%5=2

@@ -1,0 +1,151 @@
+set hive.cli.print.current.db=true;		//to see the current database
+[Vikas@localhost hadoop-1.0.3]$ bin/hadoop fs -ls /user/hive/warehouse/testdb.db/student_partition/course=B.Tech/year=1/partitionIp/			//to to Check the stored file in the HDFS
+go to hadoop folder 
+type command like.
+bin/hadoop fs -ls /user/hive/warehouse/database_name.
+
+
+
+truncate table mx_e_acctng_tb_input
+truncate table student_partition;
+
+
+
+
+
+[Vikas@localhost hadoop-1.0.3]$ cd bin
+[Vikas@localhost bin]$ sh stasrttart-ll.sh
+sh: stasrttart-ll.sh: No such file or directory
+[Vikas@localhost bin]$ sh start-all.sh
+Warning: $HADOOP_HOME is deprecated.
+
+starting namenode, logging to /home/Vikas/hadoop-1.0.3/libexec/../logs/hadoop-Vikas-namenode-localhost.localdomain.out
+Vikas@localhost's password: 
+localhost: Warning: $HADOOP_HOME is deprecated.
+localhost: 
+localhost: starting datanode, logging to /home/Vikas/hadoop-1.0.3/libexec/../logs/hadoop-Vikas-datanode-localhost.localdomain.out
+Vikas@localhost's password: 
+localhost: Warning: $HADOOP_HOME is deprecated.
+localhost: 
+localhost: starting secondarynamenode, logging to /home/Vikas/hadoop-1.0.3/libexec/../logs/hadoop-Vikas-secondarynamenode-localhost.localdomain.out
+starting jobtracker, logging to /home/Vikas/hadoop-1.0.3/libexec/../logs/hadoop-Vikas-jobtracker-localhost.localdomain.out
+Vikas@localhost's password: 
+localhost: Warning: $HADOOP_HOME is deprecated.
+localhost: 
+localhost: starting tasktracker, logging to /home/Vikas/hadoop-1.0.3/libexec/../logs/hadoop-Vikas-tasktracker-localhost.localdomain.out
+[Vikas@localhost bin]$ jps
+2683 DataNode
+3072 Jps
+2544 NameNode
+2825 SecondaryNameNode
+[Vikas@localhost bin]$ bin/hadoop fs -ls;
+bash: bin/hadoop: No such file or directory
+[Vikas@localhost bin]$ bin/hadoop fs -ls
+bash: bin/hadoop: No such file or directory
+[Vikas@localhost bin]$ bin/hadoop fs -ls 
+bash: bin/hadoop: No such file or directory
+[Vikas@localhost bin]$ cd ..
+[Vikas@localhost hadoop-1.0.3]$ bin/hadoop fs -ls 
+Warning: $HADOOP_HOME is deprecated.
+
+19/05/28 20:16:41 WARN conf.Configuration: bad conf file: element not <property>
+19/05/28 20:16:41 WARN conf.Configuration: bad conf file: element not <property>
+19/05/28 20:16:41 WARN conf.Configuration: bad conf file: element not <property>
+19/05/28 20:16:41 WARN conf.Configuration: bad conf file: element not <property>
+Found 2 items
+drwxrwxr-x   - Vikas supergroup          0 2019-05-12 03:42 /user/Vikas/tmp
+drwxrwxr-x   - Vikas supergroup          0 2019-05-12 03:43 /user/Vikas/warehouse
+[Vikas@localhost hadoop-1.0.3]$ bin/hadoop fs -ls /user/hive/warehouse
+Warning: $HADOOP_HOME is deprecated.
+
+19/05/28 20:17:01 WARN conf.Configuration: bad conf file: element not <property>
+19/05/28 20:17:01 WARN conf.Configuration: bad conf file: element not <property>
+19/05/28 20:17:01 WARN conf.Configuration: bad conf file: element not <property>
+19/05/28 20:17:01 WARN conf.Configuration: bad conf file: element not <property>
+Found 2 items
+drwxr-xr-x   - Vikas supergroup          0 2019-05-12 04:21 /user/hive/warehouse/jbrd.db
+drwxr-xr-x   - Vikas supergroup          0 2019-05-28 19:54 /user/hive/warehouse/testdb.db
+[Vikas@localhost hadoop-1.0.3]$ bin/hadoop fs -ls /user/hive/warehouse/
+Warning: $HADOOP_HOME is deprecated.
+
+19/05/28 20:17:40 WARN conf.Configuration: bad conf file: element not <property>
+19/05/28 20:17:40 WARN conf.Configuration: bad conf file: element not <property>
+19/05/28 20:17:40 WARN conf.Configuration: bad conf file: element not <property>
+19/05/28 20:17:40 WARN conf.Configuration: bad conf file: element not <property>
+Found 2 items
+drwxr-xr-x   - Vikas supergroup          0 2019-05-12 04:21 /user/hive/warehouse/jbrd.db
+drwxr-xr-x   - Vikas supergroup          0 2019-05-28 19:54 /user/hive/warehouse/testdb.db
+[Vikas@localhost hadoop-1.0.3]$ bin/hadoop fs -ls /user/hive/warehouse/testdb.db/
+Warning: $HADOOP_HOME is deprecated.
+
+19/05/28 20:17:57 WARN conf.Configuration: bad conf file: element not <property>
+19/05/28 20:17:57 WARN conf.Configuration: bad conf file: element not <property>
+19/05/28 20:17:57 WARN conf.Configuration: bad conf file: element not <property>
+19/05/28 20:17:57 WARN conf.Configuration: bad conf file: element not <property>
+Found 6 items
+drwxr-xr-x   - Vikas supergroup          0 2019-05-27 11:07 /user/hive/warehouse/testdb.db/inddata
+drwxr-xr-x   - Vikas supergroup          0 2019-05-27 11:04 /user/hive/warehouse/testdb.db/indnrmltbl
+drwxr-xr-x   - Vikas supergroup          0 2019-05-26 04:47 /user/hive/warehouse/testdb.db/student2
+drwxr-xr-x   - Vikas supergroup          0 2019-05-26 04:37 /user/hive/warehouse/testdb.db/student3
+drwxr-xr-x   - Vikas supergroup          0 2019-05-28 20:13 /user/hive/warehouse/testdb.db/student_partition
+drwxr-xr-x   - Vikas supergroup          0 2019-05-26 06:19 /user/hive/warehouse/testdb.db/studentext1
+[Vikas@localhost hadoop-1.0.3]$ bin/hadoop fs -ls /user/hive/warehouse/testdb.db/student_partition
+Warning: $HADOOP_HOME is deprecated.
+
+19/05/28 20:18:14 WARN conf.Configuration: bad conf file: element not <property>
+19/05/28 20:18:14 WARN conf.Configuration: bad conf file: element not <property>
+19/05/28 20:18:14 WARN conf.Configuration: bad conf file: element not <property>
+19/05/28 20:18:14 WARN conf.Configuration: bad conf file: element not <property>
+Found 1 items
+drwxr-xr-x   - Vikas supergroup          0 2019-05-28 20:13 /user/hive/warehouse/testdb.db/student_partition/course=B.Tech
+[Vikas@localhost hadoop-1.0.3]$ bin/hadoop fs -ls /user/hive/warehouse/testdb.db/student_partition/course=B.Tech/
+Warning: $HADOOP_HOME is deprecated.
+
+19/05/28 20:18:32 WARN conf.Configuration: bad conf file: element not <property>
+19/05/28 20:18:32 WARN conf.Configuration: bad conf file: element not <property>
+19/05/28 20:18:32 WARN conf.Configuration: bad conf file: element not <property>
+19/05/28 20:18:32 WARN conf.Configuration: bad conf file: element not <property>
+Found 1 items
+drwxr-xr-x   - Vikas supergroup          0 2019-05-28 20:13 /user/hive/warehouse/testdb.db/student_partition/course=B.Tech/year=1
+[Vikas@localhost hadoop-1.0.3]$ bin/hadoop fs -ls /user/hive/warehouse/testdb.db/student_partition/course=B.Tech/year=1/
+Warning: $HADOOP_HOME is deprecated.
+
+19/05/28 20:19:15 WARN conf.Configuration: bad conf file: element not <property>
+19/05/28 20:19:15 WARN conf.Configuration: bad conf file: element not <property>
+19/05/28 20:19:15 WARN conf.Configuration: bad conf file: element not <property>
+19/05/28 20:19:15 WARN conf.Configuration: bad conf file: element not <property>
+Found 1 items
+-rw-r--r--   1 Vikas supergroup       1068 2019-05-28 20:13 /user/hive/warehouse/testdb.db/student_partition/course=B.Tech/year=1/partitionIp
+[Vikas@localhost hadoop-1.0.3]$ bin/hadoop fs -ls /user/hive/warehouse/testdb.db/student_partition/course=B.Tech/year=1/partitionIp
+Warning: $HADOOP_HOME is deprecated.
+
+19/05/28 20:19:39 WARN conf.Configuration: bad conf file: element not <property>
+19/05/28 20:19:39 WARN conf.Configuration: bad conf file: element not <property>
+19/05/28 20:19:39 WARN conf.Configuration: bad conf file: element not <property>
+19/05/28 20:19:39 WARN conf.Configuration: bad conf file: element not <property>
+Found 1 items
+-rw-r--r--   1 Vikas supergroup       1068 2019-05-28 20:13 /user/hive/warehouse/testdb.db/student_partition/course=B.Tech/year=1/partitionIp
+[Vikas@localhost hadoop-1.0.3]$ bin/hadoop fs -ls /user/hive/warehouse/testdb.db/student_partition/course=B.Tech/year=1/partitionIp/
+Warning: $HADOOP_HOME is deprecated.
+
+19/05/28 20:19:45 WARN conf.Configuration: bad conf file: element not <property>
+19/05/28 20:19:45 WARN conf.Configuration: bad conf file: element not <property>
+19/05/28 20:19:45 WARN conf.Configuration: bad conf file: element not <property>
+19/05/28 20:19:45 WARN conf.Configuration: bad conf file: element not <property>
+Found 1 items
+-rw-r--r--   1 Vikas supergroup       1068 2019-05-28 20:13 /user/hive/warehouse/testdb.db/student_partition/course=B.Tech/year=1/partitionIp
+[Vikas@localhost hadoop-1.0.3]$ set hive.cli.print.current.db=true;
+[Vikas@localhost hadoop-1.0.3]$ bin/hadoop fs -ls /user/hive/warehouse/testdb.db/student_partition/
+Warning: $HADOOP_HOME is deprecated.
+
+19/05/28 20:46:52 WARN conf.Configuration: bad conf file: element not <property>
+19/05/28 20:46:52 WARN conf.Configuration: bad conf file: element not <property>
+19/05/28 20:46:52 WARN conf.Configuration: bad conf file: element not <property>
+19/05/28 20:46:52 WARN conf.Configuration: bad conf file: element not <property>
+Found 6 items
+drwxr-xr-x   - Vikas supergroup          0 2019-05-28 20:44 /user/hive/warehouse/testdb.db/student_partition/course=IAS
+drwxr-xr-x   - Vikas supergroup          0 2019-05-28 20:44 /user/hive/warehouse/testdb.db/student_partition/course=cse
+drwxr-xr-x   - Vikas supergroup          0 2019-05-28 20:44 /user/hive/warehouse/testdb.db/student_partition/course=ece
+drwxr-xr-x   - Vikas supergroup          0 2019-05-28 20:44 /user/hive/warehouse/testdb.db/student_partition/course=it
+drwxr-xr-x   - Vikas supergroup          0 2019-05-28 20:44 /user/hive/warehouse/testdb.db/student_partition/course=mca
+drwxr-xr-x   - Vikas supergroup          0 2019-05-28 20:44 /user/hive/warehouse/testdb.db/student_partition/course=pcs

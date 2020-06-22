@@ -1,0 +1,409 @@
+[Vikas@localhost hive-0.9.0]$ hive
+WARNING: org.apache.hadoop.metrics.jvm.EventCounter is deprecated. Please use org.apache.hadoop.log.metrics.EventCounter in all the log4j.properties files.
+Logging initialized using configuration in jar:file:/home/Vikas/hive-0.9.0/lib/hive-common-0.9.0.jar!/hive-log4j.properties
+Hive history file=/tmp/Vikas/hive_job_log_Vikas_201906090906_948595255.txt
+hive> show databases;
+OK
+capgemini
+cg
+default
+jbrd
+testdb
+vikas
+Time taken: 3.42 seconds
+hive> create table Emp (id int, name string, salary int, gender string, depid int) row format delimeted
+    > fields terminated by ','
+    > ;
+FAILED: Parse Error: line 1:77 cannot recognize input near 'row' 'format' 'delimeted' in table row format specification
+
+hive> create table Emp (id int, name string, salary int, gender string, depid int) rows format delimeted
+    > create table Emp (id int, name string, salary int, gender string, depid in                                                                                fields terminated by ','
+    > ;
+FAILED: Parse Error: line 1:77 mismatched input 'rows' expecting EOF near ')'
+
+hive> 
+    > ^C[Vikas@localhost hive-0.9.0]$ hive
+WARNING: org.apache.hadoop.metrics.jvm.EventCounter is deprecated. Please use org.apache.hadoop.log.metrics.EventCounter in all the log4j.properties files.
+Logging initialized using configuration in jar:file:/home/Vikas/hive-0.9.0/lib/hive-common-0.9.0.jar!/hive-log4j.properties
+Hive history file=/tmp/Vikas/hive_job_log_Vikas_201906090928_424247830.txt
+hive> 10001,CSE,Bangalore
+    > 10002,IT,Rajasthan
+    > 10003,ECE,UP
+    > 10004,ME,MP
+    > 10005,EEE,J&K
+    > 10006,CSE,Bangalore
+    > 10007,IT,Rajasthan
+    > 10008,ECE,UP
+    > 10009,ME,MP
+    > 10010,EEE,J&K
+    > 10011,CSE,Bangalore
+    > 10012,IT,Rajasthan
+    > 10013,ECE,UP
+    > 10014,ME,MP
+    > 10015,EEE,J&K
+    > 10016,CSE,Bangalore
+    > 10017,IT,Rajasthan
+    > 10018,ECE,UP
+    > 10019,ME,MP
+    > 10020,EEE,J&K
+    > 10021,CSE,Bangalore
+    > 10022,IT,Rajasthan
+    > 10023,ECE,UP
+    > 10024,ME,MP
+    > 10025,EEE,J&K
+    > 10026,CSE,Bangalore
+    > 10027,IT,Rajasthan
+    > 10028,ECE,UP
+    > 10029,ME,MP
+    > 10030,EEE,J&K
+    > 10031,EEE,J&K
+    > 10032,CSE,Bangalore
+    > 10033,IT,Rajasthan
+    > 10034,ECE,UP
+    > 10035,ME,MP
+    > 10036,EEE,J&K
+    > ;
+FAILED: Parse Error: line 1:0 cannot recognize input near '10001' ',' 'CSE'
+
+hive> 
+    > 
+    > 
+    > create table Emp(id int, name string, salary string, gender string, depid id)
+    > rows format delimeted
+    > fields terminated by ',';
+FAILED: Parse Error: line 1:74 cannot recognize input near 'id' ')' 'rows' in column type
+
+hive> create table Emp(id int, name string, salary string, gender string, depid id)
+    > create table Emp(id int, name string, salary string, gender string, depid ;                                                                            
+FAILED: Parse Error: line 1:74 cannot recognize input near 'id' ')' '<EOF>' in column type
+
+hive> create table Emp(id int, name string, salary string, gender string, depid id) ROW FORMAT DELIMITED fields terminated by ',';
+FAILED: Parse Error: line 1:74 cannot recognize input near 'id' ')' 'ROW' in column type
+
+hive> create table Emp(id int, name string, salary string, gender string, depid int) ROW FORMAT DELIMITED fields terminated by ',';
+OK
+Time taken: 4.094 seconds
+hive> select * from Emp;
+OK
+Time taken: 0.481 seconds
+hive> load data inpath '/home/Vikas/Inputfile/Joins1' into table Emp;
+FAILED: Error in semantic analysis: Line 1:17 Invalid path ''/home/Vikas/Inputfile/Joins1'': No files matching path hdfs://localhost:54310/home/Vikas/Inputfile/Joins1
+hive> load data local inpath "/home/Vikas/Inputfile/Joins1" into table Emp;
+Copying data from file:/home/Vikas/Inputfile/Joins1
+Copying file: file:/home/Vikas/Inputfile/Joins1
+Loading data to table default.emp
+OK
+Time taken: 0.529 seconds
+hive> select * from Emp;                                                   
+OK
+1	Vikas	50000	Male	10001
+2	Sachin	50001	Male	10002
+3	Saket	50002	Female	10003
+4	Sumit	50003	Male	10004
+5	Subrat	50004	Male	10005
+6	Sachin	50005	Female	10006
+7	Saket	50006	Male	10007
+8	Sumit	50007	Male	10008
+9	Sachin	50008	Female	10009
+10	Saket	50009	Male	10010
+11	Sumit	50010	Male	10011
+12	Subrat	50011	Female	10012
+13	Sachin	50012	Male	10013
+14	Saket	50013	Male	10014
+15	Vikas	50014	Female	10015
+16	Sachin	50015	Male	10016
+17	Saket	50016	Male	10017
+18	Sumit	50017	Female	10018
+19	Vikas	50000	Male	10019
+20	Sachin	50001	Male	10020
+21	Saket	50002	Female	10021
+22	Sumit	50003	Male	10022
+23	Subrat	50004	Male	10023
+24	Sachin	50005	Female	10024
+25	Saket	50006	Male	10025
+26	Sumit	50007	Male	10026
+27	Sachin	50008	Female	10027
+28	Saket	50009	Male	10028
+29	Sumit	50010	Male	10029
+30	Subrat	50011	Female	10030
+31	Sachin	50012	Male	10031
+32	Saket	50013	Male	10032
+33	Vikas	50014	Female	10033
+34	Sachin	50015	Male	10034
+35	Saket	50016	Male	10035
+36	Sumit	50017	Female	10036
+Time taken: 0.187 seconds
+hive> create table dep(depid int, dname string, dloc string) row format delimited fields terminated by ',';
+OK
+Time taken: 0.09 seconds
+hive> select * from dep;
+OK
+Time taken: 0.132 seconds
+hive> load data local inpath '/home/Vikas/Inputfile/Joins2' insert into dep;
+FAILED: Parse Error: line 1:54 mismatched input 'insert' expecting INTO near ''/home/Vikas/Inputfile/Joins2'' in load statement
+
+hive> load data local inpath '/home/Vikas/Inputfile/Joins2' into table dep; 
+Copying data from file:/home/Vikas/Inputfile/Joins2
+Copying file: file:/home/Vikas/Inputfile/Joins2
+Loading data to table default.dep
+OK
+Time taken: 0.306 seconds
+hive> select * from dep;                                                    
+OK
+10001	CSE	Bangalore
+10002	IT	Rajasthan
+10003	ECE	UP
+10004	ME	MP
+10005	EEE	J&K
+10006	CSE	Bangalore
+10007	IT	Rajasthan
+10008	ECE	UP
+10009	ME	MP
+10010	EEE	J&K
+10011	CSE	Bangalore
+10012	IT	Rajasthan
+10013	ECE	UP
+10014	ME	MP
+10015	EEE	J&K
+10016	CSE	Bangalore
+10017	IT	Rajasthan
+10018	ECE	UP
+10019	ME	MP
+10020	EEE	J&K
+10021	CSE	Bangalore
+10022	IT	Rajasthan
+10023	ECE	UP
+10024	ME	MP
+10025	EEE	J&K
+10026	CSE	Bangalore
+10027	IT	Rajasthan
+10028	ECE	UP
+10029	ME	MP
+10030	EEE	J&K
+10031	EEE	J&K
+10032	CSE	Bangalore
+10033	IT	Rajasthan
+10034	ECE	UP
+10035	ME	MP
+10036	EEE	J&K
+Time taken: 0.122 seconds
+hive> 
+    > 
+    > 
+    > show tables;                            
+OK
+dep
+emp
+Time taken: 0.13 seconds
+hive> show create table EMP;
+FAILED: Parse Error: line 1:0 cannot recognize input near 'show' 'create' 'table' in ddl statement
+
+hive> select * from emp;    
+OK
+1	Vikas	50000	Male	10001
+2	Sachin	50001	Male	10002
+3	Saket	50002	Female	10003
+4	Sumit	50003	Male	10004
+5	Subrat	50004	Male	10005
+6	Sachin	50005	Female	10006
+7	Saket	50006	Male	10007
+8	Sumit	50007	Male	10008
+9	Sachin	50008	Female	10009
+10	Saket	50009	Male	10010
+11	Sumit	50010	Male	10011
+12	Subrat	50011	Female	10012
+13	Sachin	50012	Male	10013
+14	Saket	50013	Male	10014
+15	Vikas	50014	Female	10015
+16	Sachin	50015	Male	10016
+17	Saket	50016	Male	10017
+18	Sumit	50017	Female	10018
+19	Vikas	50000	Male	10019
+20	Sachin	50001	Male	10020
+21	Saket	50002	Female	10021
+22	Sumit	50003	Male	10022
+23	Subrat	50004	Male	10023
+24	Sachin	50005	Female	10024
+25	Saket	50006	Male	10025
+26	Sumit	50007	Male	10026
+27	Sachin	50008	Female	10027
+28	Saket	50009	Male	10028
+29	Sumit	50010	Male	10029
+30	Subrat	50011	Female	10030
+31	Sachin	50012	Male	10031
+32	Saket	50013	Male	10032
+33	Vikas	50014	Female	10033
+34	Sachin	50015	Male	10034
+35	Saket	50016	Male	10035
+36	Sumit	50017	Female	10036
+Time taken: 0.133 seconds
+hive> select * from dep;
+OK
+10001	CSE	Bangalore
+10002	IT	Rajasthan
+10003	ECE	UP
+10004	ME	MP
+10005	EEE	J&K
+10006	CSE	Bangalore
+10007	IT	Rajasthan
+10008	ECE	UP
+10009	ME	MP
+10010	EEE	J&K
+10011	CSE	Bangalore
+10012	IT	Rajasthan
+10013	ECE	UP
+10014	ME	MP
+10015	EEE	J&K
+10016	CSE	Bangalore
+10017	IT	Rajasthan
+10018	ECE	UP
+10019	ME	MP
+10020	EEE	J&K
+10021	CSE	Bangalore
+10022	IT	Rajasthan
+10023	ECE	UP
+10024	ME	MP
+10025	EEE	J&K
+10026	CSE	Bangalore
+10027	IT	Rajasthan
+10028	ECE	UP
+10029	ME	MP
+10030	EEE	J&K
+10031	EEE	J&K
+10032	CSE	Bangalore
+10033	IT	Rajasthan
+10034	ECE	UP
+10035	ME	MP
+10036	EEE	J&K
+Time taken: 0.142 seconds
+hive> 
+    > 
+    > select * from emp e inner join dep d on (e.depid = d.depid);
+Total MapReduce jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapred.reduce.tasks=<number>
+19/06/09 09:54:33 WARN conf.Configuration: bad conf file: element not <property>
+19/06/09 09:54:33 WARN conf.HiveConf: hive-site.xml not found on CLASSPATH
+WARNING: org.apache.hadoop.metrics.jvm.EventCounter is deprecated. Please use org.apache.hadoop.log.metrics.EventCounter in all the log4j.properties files.
+Execution log at: /tmp/Vikas/Vikas_20190609095454_01f9e4fa-10b9-407c-9e68-4417f753a6a0.log
+Job running in-process (local Hadoop)
+Hadoop job information for null: number of mappers: 0; number of reducers: 0
+2019-06-09 09:54:35,095 null map = 0%,  reduce = 0%
+2019-06-09 09:54:38,103 null map = 100%,  reduce = 0%
+2019-06-09 09:54:44,113 null map = 100%,  reduce = 100%
+Ended Job = job_local_0001
+Execution completed successfully
+Mapred Local Task Succeeded . Convert the Join into MapJoin
+OK
+1	Vikas	50000	Male	10001	10001	CSE	Bangalore
+2	Sachin	50001	Male	10002	10002	IT	Rajasthan
+3	Saket	50002	Female	10003	10003	ECE	UP
+4	Sumit	50003	Male	10004	10004	ME	MP
+5	Subrat	50004	Male	10005	10005	EEE	J&K
+6	Sachin	50005	Female	10006	10006	CSE	Bangalore
+7	Saket	50006	Male	10007	10007	IT	Rajasthan
+8	Sumit	50007	Male	10008	10008	ECE	UP
+9	Sachin	50008	Female	10009	10009	ME	MP
+10	Saket	50009	Male	10010	10010	EEE	J&K
+11	Sumit	50010	Male	10011	10011	CSE	Bangalore
+12	Subrat	50011	Female	10012	10012	IT	Rajasthan
+13	Sachin	50012	Male	10013	10013	ECE	UP
+14	Saket	50013	Male	10014	10014	ME	MP
+15	Vikas	50014	Female	10015	10015	EEE	J&K
+16	Sachin	50015	Male	10016	10016	CSE	Bangalore
+17	Saket	50016	Male	10017	10017	IT	Rajasthan
+18	Sumit	50017	Female	10018	10018	ECE	UP
+19	Vikas	50000	Male	10019	10019	ME	MP
+20	Sachin	50001	Male	10020	10020	EEE	J&K
+21	Saket	50002	Female	10021	10021	CSE	Bangalore
+22	Sumit	50003	Male	10022	10022	IT	Rajasthan
+23	Subrat	50004	Male	10023	10023	ECE	UP
+24	Sachin	50005	Female	10024	10024	ME	MP
+25	Saket	50006	Male	10025	10025	EEE	J&K
+26	Sumit	50007	Male	10026	10026	CSE	Bangalore
+27	Sachin	50008	Female	10027	10027	IT	Rajasthan
+28	Saket	50009	Male	10028	10028	ECE	UP
+29	Sumit	50010	Male	10029	10029	ME	MP
+30	Subrat	50011	Female	10030	10030	EEE	J&K
+31	Sachin	50012	Male	10031	10031	EEE	J&K
+32	Saket	50013	Male	10032	10032	CSE	Bangalore
+33	Vikas	50014	Female	10033	10033	IT	Rajasthan
+34	Sachin	50015	Male	10034	10034	ECE	UP
+35	Saket	50016	Male	10035	10035	ME	MP
+36	Sumit	50017	Female	10036	10036	EEE	J&K
+Time taken: 12.282 seconds
+hive> 
+    > 
+    > select e.id, e.name, e.salary, e.gender, e.depid, d.dname, d.dloc from emp e leftouter join dep d on (e.depid = d.depid);       
+FAILED: Parse Error: line 1:77 Failed to recognize predicate 'leftouter'. Failed rule: 'kwInner' in join type specifier
+
+hive> select e.id, e.name, e.salary, e.gender, e.depid, d.dname, d.dloc from emp e left outer join dep d on (e.depid = d.depid);
+Total MapReduce jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapred.reduce.tasks=<number>
+19/06/09 10:02:25 WARN conf.Configuration: bad conf file: element not <property>
+19/06/09 10:02:25 WARN conf.HiveConf: hive-site.xml not found on CLASSPATH
+WARNING: org.apache.hadoop.metrics.jvm.EventCounter is deprecated. Please use org.apache.hadoop.log.metrics.EventCounter in all the log4j.properties files.
+Execution log at: /tmp/Vikas/Vikas_20190609100202_ac0b3bf7-ccf0-47d4-a3ba-fb6408333dab.log
+Job running in-process (local Hadoop)
+Hadoop job information for null: number of mappers: 0; number of reducers: 0
+2019-06-09 10:02:27,741 null map = 0%,  reduce = 0%
+2019-06-09 10:02:30,746 null map = 100%,  reduce = 0%
+2019-06-09 10:02:36,755 null map = 100%,  reduce = 100%
+Ended Job = job_local_0001
+Execution completed successfully
+Mapred Local Task Succeeded . Convert the Join into MapJoin
+OK
+1	Vikas	50000	Male	10001	CSE	Bangalore
+2	Sachin	50001	Male	10002	IT	Rajasthan
+3	Saket	50002	Female	10003	ECE	UP
+4	Sumit	50003	Male	10004	ME	MP
+5	Subrat	50004	Male	10005	EEE	J&K
+6	Sachin	50005	Female	10006	CSE	Bangalore
+7	Saket	50006	Male	10007	IT	Rajasthan
+8	Sumit	50007	Male	10008	ECE	UP
+9	Sachin	50008	Female	10009	ME	MP
+10	Saket	50009	Male	10010	EEE	J&K
+11	Sumit	50010	Male	10011	CSE	Bangalore
+12	Subrat	50011	Female	10012	IT	Rajasthan
+13	Sachin	50012	Male	10013	ECE	UP
+14	Saket	50013	Male	10014	ME	MP
+15	Vikas	50014	Female	10015	EEE	J&K
+16	Sachin	50015	Male	10016	CSE	Bangalore
+17	Saket	50016	Male	10017	IT	Rajasthan
+18	Sumit	50017	Female	10018	ECE	UP
+19	Vikas	50000	Male	10019	ME	MP
+20	Sachin	50001	Male	10020	EEE	J&K
+21	Saket	50002	Female	10021	CSE	Bangalore
+22	Sumit	50003	Male	10022	IT	Rajasthan
+23	Subrat	50004	Male	10023	ECE	UP
+24	Sachin	50005	Female	10024	ME	MP
+25	Saket	50006	Male	10025	EEE	J&K
+26	Sumit	50007	Male	10026	CSE	Bangalore
+27	Sachin	50008	Female	10027	IT	Rajasthan
+28	Saket	50009	Male	10028	ECE	UP
+29	Sumit	50010	Male	10029	ME	MP
+30	Subrat	50011	Female	10030	EEE	J&K
+31	Sachin	50012	Male	10031	EEE	J&K
+32	Saket	50013	Male	10032	CSE	Bangalore
+33	Vikas	50014	Female	10033	IT	Rajasthan
+34	Sachin	50015	Male	10034	ECE	UP
+35	Saket	50016	Male	10035	ME	MP
+36	Sumit	50017	Female	10036	EEE	J&K
+Time taken: 12.094 seconds
+hive> 
+    > 
+    > 
+    > select * e.id, e.name, e.salary, e.gender, e.depid, d.dnameg, d.dloce.id, e.name, e.salary, e.genfrom emp e left outer join dep d on (e.depid = d.depid)der, e.depid, d.dnameg, d.dlocfrom emp e left outer join dep d on (e.depid = d.depid);

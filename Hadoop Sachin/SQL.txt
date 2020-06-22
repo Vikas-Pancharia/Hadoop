@@ -1,0 +1,133 @@
+CREATE TABLE Customers 
+(
+CustomerId int,
+CustomerName varchar(30),
+ContactName varchar(30),
+Address varchar(30),
+City varchar(30),
+PostalCode varchar(30),
+Country varchar(30)
+);
+---------------------------------
+INSERT INTO Customers VALUES(1, 'Alfreds Futterkiste', 'Maria Anders', 'Obere Str. 57', 'Berlin', '12209', 'Germany');
+INSERT INTO Customers VALUES(2,'Ana Trujillo Emparedados','Ana Trujillo','Avda. de la Constitucion 2222','Mexico D.F.','05021','Mexico');
+INSERT INTO Customers VALUES(3,'Antonio Moreno Taquería','Antonio Moreno','Mataderos 2312','Mexico D.F.','05023','Mexico');
+INSERT INTO Customers VALUES(4,'Around the Horn','Thomas Hardy','120 Hanover Sq.','London','WA1 1DP','UK');
+INSERT INTO Customers VALUES(5,'Berglunds snabbkop','Christina Berglund','Berguvsvagen 8','Lulea','S-958 22','Sweden');
+---------------------------------
+SELECT CustomerName, City FROM Customers;
+SELECT * FROM Customers;
+--------------------------------
+SELECT DISTINCT COUNTRY FROM Customers;
+SELECT COUNT(DISTINCT Country) FROM Customers; 
+SELECT Count(*) AS DistinctCountries FROM (SELECT DISTINCT Country FROM Customers);
+--------------------------------
+SELECT * FROM Customers WHERE COUNTRY='Mexico'
+--------------------------------
+select * from customers where postalcode='05021' AND country='Mexico';
+select * from customers where city='Berlin' OR city='London';
+SELECT * from customers where not city='London';
+SELECT * FROM Customers WHERE Country='Germany' AND (City='Berlin' OR City='Munchen');
+SELECT * FROM Customers WHERE NOT Country='Germany' AND NOT Country='USA'; 
+--------------------------------
+SELECT * FROM Customers ORDER BY Country;
+SELECT * FROM Customers ORDER BY Country DESC; 
+SELECT * FROM Customers ORDER BY Country, CustomerName; 
+SELECT * FROM Customers ORDER BY Country ASC, CustomerName DESC; 
+--------------------------------
+INSERT INTO Customers (CustomerName, ContactName, Address, City, PostalCode, Country) VALUES ('Cardinal', 'Tom B. Erichsen', 'Skagen 21', 'Stavanger', '4006', 'Norway');
+INSERT INTO Customers VALUES(89,'White Clover Markets','Karl Jablonski','305 - 14th Ave. S. Suite 3B','Seattle','98128','USA');
+INSERT INTO Customers VALUES(90,'Wilman Kala','Matti Karttunen','Keskuskatu 45','Helsinki','21240','Finland');
+insert into Customers values(91,'Wolski','Zbyszek','ul. Filtrowa 68','Walla','01-012','Poland');
+insert into Customers values(92,'Cardinal','Tom B. Erichsen','Skagen 21','Stavanger','4006','Norway');
+-------------------------------
+SELECT CustomerName, ContactName, Address FROM Customers WHERE Address IS NULL;
+SELECT CustomerName, ContactName, Address FROM Customers WHERE Address IS NOT NULL;
+-------------------------------
+UPDATE Customers SET ContactName = 'Alfred Schmidt', City= 'Frankfurt' WHERE CustomerID = 1; 
+update Customers set City='Mexico D.F.' where CustomerId=3;
+UPDATE Customers SET ContactName='Juan' WHERE Country='Mexico';
+-------------------------------
+SELECT * FROM Customers WHERE ROWNUM <= 3;
+SELECT * FROM Customers WHERE Country='Germany' AND ROWNUM <= 3; 
+-------------------------------
+CREATE TABLE PRODUCTS (
+ProductId int,
+ProductName VARCHAR(30),
+SupplierId int,
+CategoryId int,
+Unit varchar(30),
+Price int
+)
+--------------------------------
+INSERT INTO PRODUCTS VALUES(1,'Chais',1,1,'10 boxes x 20 bags',18);
+INSERT INTO PRODUCTS VALUES(2,'Chang',1,1,'24 - 12 oz bottles',19);
+INSERT INTO PRODUCTS VALUES(3,'Aniseed Syrup',1,2,'12 - 550 ml bottles',10);
+INSERT INTO PRODUCTS VALUES(4,'Chef Antons Cajun Seasoning',2,2,'48 - 6 oz jars',22);
+INSERT INTO PRODUCTS VALUES(5,'Chef Antons Gumbo Mix',2,2,'36 boxes',21.35);
+---------------------------------
+SELECT MIN(Price) AS SmallestPrice FROM Products; 
+SELECT MAX(Price) AS LargestPrice FROM Products; 
+---------------------------------
+SELECT COUNT(ProductID) FROM Products; 
+SELECT AVG(Price) FROM Products; 
+---------------------------------
+CREATE TABLE OrderDeatils (
+OrderDetailId int,
+OrderId int,
+ProductId int,
+Quantity int
+);
+-----------------------------------
+INSERT INTO orderdeatils VALUES(1,10248,11,12);
+INSERT INTO orderdeatils VALUES(2,10248,42,10);
+INSERT INTO orderdeatils VALUES(3,10248,72,5);
+INSERT INTO orderdeatils VALUES(4,10249,14,9);
+INSERT INTO orderdeatils VALUES(5,10249,51,40);
+-----------------------------------
+SELECT SUM(Quantity) FROM orderdeatils; 
+-----------------------------------
+SELECT * FROM Customers WHERE CustomerName LIKE '%a'; 
+SELECT * FROM Customers WHERE CustomerName LIKE '%or%'; 
+SELECT * FROM Customers WHERE CustomerName LIKE '_r%'; 
+SELECT * FROM Customers WHERE CustomerName LIKE 'A_%_%'; 
+SELECT * FROM Customers WHERE ContactName LIKE 'A%o'; 
+SELECT * FROM Customers WHERE CustomerName NOT LIKE 'A%'; 
+-----------------------------------
+SELECT * FROM Customers WHERE City LIKE 'Ber%'; 
+SELECT * FROM Customers WHERE City LIKE '%co%'; 
+SELECT * FROM Customers WHERE City LIKE '_ondon';
+SELECT * FROM Customers WHERE City LIKE 'L_n_on'; 
+SELECT * FROM Customers WHERE City LIKE '[BSC]%'; 
+SELECT * FROM Customers WHERE City LIKE '[A-C]%'; 
+SELECT * FROM Customers WHERE City LIKE '[!BSP]%';
+SELECT * FROM Customers WHERE City NOT LIKE '[BSP]%';
+-----------------------------------
+SELECT * FROM Customers WHERE Country IN ('Germany', 'France', 'UK'); 
+SELECT * FROM Customers WHERE Country NOT IN ('Germany', 'France', 'UK'); 
+SELECT * FROM Customers WHERE Country IN (SELECT Country FROM Suppliers); 
+-----------------------------------
+SELECT * FROM Products WHERE Price BETWEEN 10 AND 20; 
+SELECT * FROM Products WHERE Price NOT BETWEEN 10 AND 20; 
+SELECT * FROM Products WHERE Price BETWEEN 10 AND 20 AND NOT CategoryID IN (1,3);
+SELECT * FROM Products WHERE ProductName BETWEEN 'Chais' AND 'Chef Antons Cajun Seasoning' ORDER BY ProductName; 
+SELECT * FROM Products WHERE ProductName NOT BETWEEN 'Chais' AND 'Chef Antons Cajun Seasoning'ORDER BY ProductName; 
+-----------------------------------
+Create table Orders (
+OrderID int,
+CustomerID int,
+EmployeeID int,
+OrderDate VARCHAR(30),
+ShipperID int
+);
+-----------------------------------
+update Orders set ORDERDATE=07/04/1996 WHERE ORDERID=1;
+insert into Orders values(10248,90,5,'07-04-1996',3);
+insert into Orders values(10249,81,6,'07-05-1996',1);
+insert into Orders values(10250,34,4,'07-08-1996',2);
+insert into Orders values(10251,84,3,'07-09-1996',1);
+insert into Orders values(10252,76,4,'07-10-1996',2);
+-----------------------------------
+select * from Orders;
+SELECT * FROM Orders WHERE OrderDate BETWEEN '07-01-1996' AND '07-31-1996';
+-----------------------------------

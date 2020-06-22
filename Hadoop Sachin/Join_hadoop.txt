@@ -1,0 +1,19 @@
+hive  joins are basicallyl of 3 types 
+1) inner  joins 
+2) Outer Joins 
+3) map side joins 
+
+
+
+1) inner Joins 
+only matching row with given join condition wil result in output (intersection from both the table )
+
+i)i.dno=r.dno;
+
+2)Outer Joins .
+matching & non matching both used to come in result depends on whta type of outer joins we are using .
+Outer joins are further divided in to 3 part 
+
+i) Left Outer Joins(matching from right and matching and non matching from left side table )
+ii) Right Outer joins (Matching from left side table and Matching and non matching records from the right side table)
+iii) Full outer joins (Matching & non-matching of left +non matching from right).
